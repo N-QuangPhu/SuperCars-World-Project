@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuperCars World - Trang chủ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">SuperCars World</h1>
+      <nav class="main-nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="top10.html">Top 10 đắt nhất</a>
+        <a href="contact.html">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Khám phá những siêu xe nổi tiếng thế giới</h2>
+      <p>Thông tin - Giá bán - Thông số. Tìm kiếm theo hãng nhanh chóng.</p>
+    </section>
+
+    <section class="search-bar">
+      <input id="searchInput" type="text" placeholder="Tìm theo tên hoặc hãng (ví dụ: Ferrari)" />
+      <select id="brandSelect">
+        <option value="">Tất cả hãng</option>
+        <option value="Ferrari">Ferrari</option>
+        <option value="Bugatti">Bugatti</option>
+        <option value="Lamborghini">Lamborghini</option>
+        <option value="McLaren">McLaren</option>
+        <option value="Porsche">Porsche</option>
+        <option value="Koenigsegg">Koenigsegg</option>
+        <option value="Pagani">Pagani</option>
+        <option value="Aston Martin">Aston Martin</option>
+        <option value="Mercedes-AMG">Mercedes-AMG</option>
+        <option value="Rolls-Royce">Rolls-Royce</option>
+        <option value="Bentley">Bentley</option>
+        <option value="Rimac">Rimac</option>
+
+      </select>
+      <button id="searchBtn">Tìm</button>
+    </section>
+
+    <section id="carsGrid" class="grid">
+      <!-- Cards injected by script.js -->
+    </section>
+
+    <!-- modal chi tiết -->
+    <div id="carModal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel">
+        <button class="modal-close" aria-label="Đóng">&times;</button>
+        <div class="modal-content">
+          <img class="modal-img" src="" alt="" />
+          <div class="modal-info">
+            <h3 class="modal-title"></h3>
+            <div class="modal-price"></div>
+            <div class="modal-brand"></div>
+            <p class="modal-desc"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 SuperCars World - Dự án cuối kỳ</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

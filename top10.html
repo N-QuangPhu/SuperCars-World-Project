@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top 10 Siêu Xe Đắt Nhất - SuperCars World</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* nhỏ gọn cho trang Top10 */
+    .top-hero{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:12px;}
+    .top-hero .note{color:var(--muted);}
+    .top-grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px;}
+    @media(min-width:700px){ .top-grid{grid-template-columns:repeat(2,1fr);} }
+    .top-card{background:#fff; border-radius:8px; padding:12px; display:flex; gap:12px; align-items:center; border:1px solid #eaeaea;}
+    .top-card img{width:160px; height:100px; object-fit:cover; border-radius:6px;}
+    .rank{font-size:20px; color:var(--accent); font-weight:700; width:48px; text-align:center;}
+    .top-meta small{color:var(--muted);}
+    .actions{margin-top:8px;}
+    .actions a{display:inline-block; text-decoration:none; padding:8px 12px; border-radius:6px; background:var(--primary); color:#fff; margin-right:8px;}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">SuperCars World</h1>
+      <nav class="main-nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="top10.html">Top 10 đắt nhất</a>
+        <a href="contact.html">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero top-hero">
+      <div>
+        <h2>Top 10 Siêu Xe Đắt Nhất Thế Giới</h2>
+        <p class="note">Sắp xếp theo giá (ước tính). Dữ liệu demo có thể khác thực tế.</p>
+      </div>
+      <div class="actions">
+        <a href="index.html">Xem tất cả mẫu xe</a>
+        <a href="#" id="refreshBtn">Tải lại Top10</a>
+      </div>
+    </section>
+
+    <section class="top-list">
+      <!-- Thẻ OL gốc (dùng bởi script cũ) -->
+      <ol id="topList" style="display:none;"></ol>
+
+      <!-- Grid hiển thị đẹp hơn: script sẽ thêm .top-card vào #topGrid -->
+      <div id="topGrid" class="top-grid">
+        <!-- Items sẽ được inject ở đây bởi script.js (renderTop10Grid) -->
+      </div>
+    </section>
+
+    <section style="margin-top:16px;">
+      <h3>Link ảnh & Video (Top10)</h3>
+      <p>Ảnh: mở trong tab mới. Video: nhúng mẫu.</p>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <a href="images/rolls_sweptail.jpg" target="_blank" rel="noopener noreferrer"><img src="images/rolls_sweptail.jpg" alt="Rolls" style="width:200px;height:120px;object-fit:cover;border-radius:6px;border:1px solid #e6e6e6"></a>
+        <iframe width="300" height="170" src="https://www.youtube.com/embed/NkpRuRrMi7M?si=RMRAjBS9RXVkll4e" title="Ví dụ video" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 SuperCars World</p>
+    </div>
+  </footer>
+
+  <!-- modal chi tiết (dùng chung) -->
+  <div id="carModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel">
+      <button class="modal-close" aria-label="Đóng">&times;</button>
+      <div class="modal-content">
+        <img class="modal-img" src="" alt="" />
+        <div class="modal-info">
+          <h3 class="modal-title"></h3>
+          <div class="modal-price"></div>
+          <div class="modal-brand"></div>
+          <p class="modal-desc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Nếu bạn dùng script.js hiện tại, nó đã sinh ra nội dung cho #topList.
+    // Ở đây: chuyển dữ liệu từ #topList -> #topGrid để hiển thị dạng card đẹp hơn.
+    function migrateTopListToGrid(){
+      const ol = document.getElementById('topList');
+      const grid = document.getElementById('topGrid');
+      if(!ol || !grid) return;
+      // nếu OL rỗng thì chờ một chút (script chính có thể chưa render) — thử 3 lần
+      const tryMigrate = (attempt=0) => {
+        if(ol.children.length === 0 && attempt < 3){
+          setTimeout(()=> tryMigrate(attempt+1), 200);
+          return;
+        }
+        grid.innerHTML = '';
+        Array.from(ol.children).forEach((li, i) => {
+          // lấy nội dung từ li
+          const img = li.querySelector('img') ? li.querySelector('img').src : '';
+          const title = li.querySelector('strong') ? li.querySelector('strong').innerText : li.innerText;
+          const price = li.querySelector('span') ? li.querySelector('span').innerText : '';
+          const meta = li.querySelector('small') ? li.querySelector('small').innerText : '';
+          const card = document.createElement('div');
+          card.className = 'top-card';
+          card.innerHTML = `
+            <div class="rank">${i+1}</div>
+            <img src="${img}" alt="${title}">
+            <div class="top-meta">
+              <div style="font-weight:700;">${title}</div>
+              <div style="color:var(--accent); font-weight:700; margin:6px 0;">${price}</div>
+              <small>${meta}</small>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      };
+      tryMigrate();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // chờ script.js render TopList rồi migrate sang Grid
+      setTimeout(migrateTopListToGrid, 300);
+      document.getElementById('refreshBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        // gọi lại renderTop10 (nếu có) và migrate
+        if(typeof renderTop10 === 'function') renderTop10();
+        setTimeout(migrateTopListToGrid, 200);
+      });
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
