@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Liên hệ - SuperCars World</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">SuperCars World</h1>
+      <nav class="main-nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="top10.html">Top 10 đắt nhất</a>
+        <a href="contact.html">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Liên hệ</h2>
+      <p>Gửi góp ý hoặc yêu cầu thông tin.</p>
+    </section>
+
+    <section class="contact-form">
+      <form action="#" onsubmit="alert('Cảm ơn! Form chỉ demo. Không gửi thực.'); return false;">
+        <label>Họ tên:<br/><input type="text" name="name" required></label><br/>
+        <label>Email:<br/><input type="email" name="email" required></label><br/>
+        <label>Nội dung:<br/><textarea name="message" rows="4"></textarea></label><br/>
+        <button type="submit">Gửi</button>
+      </form>
+    </section>
+
+    <section style="margin-top:18px;">
+      <h3>Ảnh + video</h3>
+      <p>Ảnh mở trong tab mới; video nhúng mẫu.</p>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <a href="images/Ferrari_SF90.jpg" target="_blank" rel="noopener noreferrer"><img src="images/Ferrari_SF90.jpg" alt="Ferrari" style="width:180px;height:100px;object-fit:cover;border-radius:6px;border:1px solid #e6e6e6"></a>
+        <iframe width="300" height="170" src="https://www.youtube.com/embed/Po4w52SsNMk" title="Ví dụ video" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 SuperCars World</p>
+    </div>
+  </footer>
+</body>
+</html>
